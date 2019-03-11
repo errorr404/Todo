@@ -1,44 +1,47 @@
-import {ADD_TODO,UPDATE_TODO} from '../constant'
-import axios from 'axios'
+import { ADD_TODO, UPDATE_TODO } from "../constant";
+import axios from "axios";
 
-export const addTodo = (name) =>{
-    return dispatch =>{
-        axios.post('http://localhost:5000/api/post_todo',{name:name}).then(res=>{
-            if(res.status===200){
-                dispatch(addTodoSuccess(res.data.todo))
-            }
-        })
-    }
-}
+export const addTodo = name => {
+  return dispatch => {
+    axios
+      .post("http://localhost:5000/api/post_todo", { name: name })
+      .then(res => {
+        if (res.status === 200) {
+          dispatch(addTodoSuccess(res.data.todo));
+        }
+        else if(res.status===301){
+          console.log(res.data.message)
+        }
+      }).catch(err=>console.log(err));
+  };
+};
 
-const addTodoSuccess = (name)=>{
-    const action = {
-        type:ADD_TODO,
-        name
-    }
-    console.log('addTodo is called...')
-    return action
-}
+const addTodoSuccess = name => {
+  const action = {
+    type: ADD_TODO,
+    name
+  };
+  console.log("addTodo is called...");
+  return action;
+};
 
-export const setInitialTodo = ()=>{
-    return dispatch =>{
-        axios.get('http://localhost:5000/api/get_todo').then(res=>{
-            if(res.status===200){
-                console.log(res.data)
-                res.data.todo.map(item=>{
-                    dispatch(setInitialTodoSuccess(item))
-                })
-               
-            }
-        })
-    }
-  
-}
+export const setInitialTodo = () => {
+  return dispatch => {
+    axios.get("http://localhost:5000/api/get_todo").then(res => {
+      if (res.status === 200) {
+        console.log(res.data);
+        res.data.todo.map(item => {
+          dispatch(setInitialTodoSuccess(item));
+        });
+      }
+    }).catch(err=>console.log(err));
+  };
+};
 
-const setInitialTodoSuccess = (name)=>{
-    const action = {
-        type:ADD_TODO,
-        name
-    }
-    return action
-}
+const setInitialTodoSuccess = name => {
+  const action = {
+    type: ADD_TODO,
+    name
+  };
+  return action;
+};
