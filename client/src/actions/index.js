@@ -5,7 +5,7 @@ export const addTodo = (name) =>{
     return dispatch =>{
         axios.post('http://localhost:5000/api/post_todo',{name:name}).then(res=>{
             if(res.status===200){
-                dispatch(addTodoSuccess(name))
+                dispatch(addTodoSuccess(res.data.todo))
             }
         })
     }
@@ -25,7 +25,10 @@ export const setInitialTodo = ()=>{
         axios.get('http://localhost:5000/api/get_todo').then(res=>{
             if(res.status===200){
                 console.log(res.data)
-                dispatch(setInitialTodoSuccess(res.data.todo))
+                res.data.todo.map(item=>{
+                    dispatch(setInitialTodoSuccess(item))
+                })
+               
             }
         })
     }

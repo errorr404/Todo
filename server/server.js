@@ -34,7 +34,8 @@ app.post('/api/post_todo',(req,res)=>{
     var todo = new Todo(todo_obj)
     todo.save()
         .then(save_res=>{
-            return res.status(200).send({"message":"saved successfully"})
+            // console.log(save_res)
+            return res.status(200).send({"message":"saved successfully","todo":save_res})
         }).catch(err=>res.status(301).send({"message":"internal server error"}))
 })
 
