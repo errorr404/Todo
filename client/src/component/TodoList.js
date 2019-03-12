@@ -63,16 +63,16 @@ class TodoList extends React.Component {
                 {todo.completed === true ? (
                   <CustomTableCell
                     align="right"
-                    onClick={e => this.handleUpdate(todo)}
+                   
                   >
-                    <i className="fas fa-check-circle" />
+                    <i className="fas fa-check-circle"  onClick={e => this.handleUpdate(todo)}/>
                   </CustomTableCell>
                 ) : (
                   <CustomTableCell
                     align="right"
-                    onClick={e => this.handleUpdate(todo)}
+                    
                   >
-                    <i className="far fa-check-circle" />
+                    <i className="far fa-check-circle" onClick={e => this.handleUpdate(todo)}/>
                   </CustomTableCell>
                 )}
                 <CustomTableCell align="right">
