@@ -18,7 +18,7 @@ mongoose
 app.get('/api/get_todo',(req,res)=>{
     Todo.find({})
         .then(todo=>{
-            console.log(todo)
+            // console.log(todo)
             if(todo.length>0) return res.status(200).send({"message":"success","todo":todo})
             else return res.status(200).send({"message":"List is empty"})
         }).catch(err=>console.log(err))
@@ -41,7 +41,7 @@ app.post('/api/post_todo',(req,res)=>{
 
 app.put('/api/update_todo',(req,res)=>{
     var id = req.body.id
-    console.log(req.body)
+    // console.log(req.body)
     Todo.findByIdAndUpdate(id,{$set:{name:req.body.name,priority:req.body.priority,completed:req.body.completed}})
         .then(update_res=>{
             if(update_res){
@@ -49,5 +49,14 @@ app.put('/api/update_todo',(req,res)=>{
             }
             else return res.status(201).send({"message":"No todo found"})
         }).catch(err=>res.send({"message":"internal server error"}))
+})
+
+app.delete('/api/delete_todo',(req,res)=>{
+    console.log(req.body)
+    var id = req.body.id
+    console.log(id)
+    Todo.findByIdAndDelete(id).then(deleted_todo=>{
+        return res.status(200).send({"message":"todo is deleted"})
+    }).catch(err=>res.status(400).send({"message":"internal server error"}))
 })
 app.listen(5000, () => console.log("server is up"));

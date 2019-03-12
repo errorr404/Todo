@@ -1,4 +1,4 @@
-import { ADD_TODO, UPDATE_TODO } from "../constant";
+import { ADD_TODO, UPDATE_TODO,DELETE_TODO } from "../constant";
 
 const todoFunc = (state = [], action) => {
   let todo = null;
@@ -18,6 +18,10 @@ const todoFunc = (state = [], action) => {
         } else return item;
       });
       console.log("todo in reducer", todo);
+      return todo;
+
+    case DELETE_TODO:
+      todo = state.filter(item => item._id !== action.payload.id);
       return todo;
   }
 };

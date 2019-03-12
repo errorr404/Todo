@@ -1,4 +1,4 @@
-import { ADD_TODO, UPDATE_TODO } from "../constant";
+import { ADD_TODO, UPDATE_TODO, DELETE_TODO } from "../constant";
 import axios from "axios";
 
 export const addTodo = name => {
@@ -8,11 +8,11 @@ export const addTodo = name => {
       .then(res => {
         if (res.status === 200) {
           dispatch(addTodoSuccess(res.data.todo));
+        } else if (res.status === 301) {
+          console.log(res.data.message);
         }
-        else if(res.status===301){
-          console.log(res.data.message)
-        }
-      }).catch(err=>console.log(err));
+      })
+      .catch(err => console.log(err));
   };
 };
 
@@ -27,14 +27,17 @@ const addTodoSuccess = name => {
 
 export const setInitialTodo = () => {
   return dispatch => {
-    axios.get("http://localhost:5000/api/get_todo").then(res => {
-      if (res.status === 200) {
-        console.log(res.data);
-        res.data.todo.map(item => {
-          dispatch(setInitialTodoSuccess(item));
-        });
-      }
-    }).catch(err=>console.log(err));
+    axios
+      .get("http://localhost:5000/api/get_todo")
+      .then(res => {
+        if (res.status === 200) {
+          console.log(res.data);
+          res.data.todo.map(item => {
+            dispatch(setInitialTodoSuccess(item));
+          });
+        }
+      })
+      .catch(err => console.log(err));
   };
 };
 
@@ -46,31 +49,52 @@ const setInitialTodoSuccess = name => {
   return action;
 };
 
-export const updateTodo = (id,name,completed,priority)=>{
-  return dispatch =>{
-    axios.put("http://localhost:5000/api/update_todo",{
-      id,
-      name,
-      completed,
-      priority
-    }).then(res=>{
-      if(res.status===200)
-      {
-       dispatch(updateTodoState(id,name,completed,priority))
-      }
-    })
-  }
-}
+export const updateTodo = (id, name, completed, priority) => {
+  return dispatch => {
+    axios
+      .put("http://localhost:5000/api/update_todo", {
+        id,
+        name,
+        completed,
+        priority
+      })
+      .then(res => {
+        if (res.status === 200) {
+          dispatch(updateTodoState(id, name, completed, priority));
+        }
+      });
+  };
+};
 
-const updateTodoState = (id,name,completed,priority) =>{
+const updateTodoState = (id, name, completed, priority) => {
   const action = {
-    type:UPDATE_TODO,
-    payload:{
+    type: UPDATE_TODO,
+    payload: {
       completed,
       priority,
-      _id:id,
+      _id: id,
       name
     }
-  }
-  return action
-}
+  };
+  return action;
+};
+
+export const deleteTodo = id => {
+  return dispatch => {
+    axios.delete("http://localhost:5000/api/delete_todo", {data:{id:id}}).then(res => {
+      if (res.status === 200) {
+        dispatch(deleteTodoState(id))
+      }
+    });
+  };
+};
+
+const deleteTodoState = id => {
+  const action = {
+    type: DELETE_TODO,
+    payload: {
+      id
+    }
+  };
+  return action;
+};
