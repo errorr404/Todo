@@ -45,3 +45,32 @@ const setInitialTodoSuccess = name => {
   };
   return action;
 };
+
+export const updateTodo = (id,name,completed,priority)=>{
+  return dispatch =>{
+    axios.put("http://localhost:5000/api/update_todo",{
+      id,
+      name,
+      completed,
+      priority
+    }).then(res=>{
+      if(res.status===200)
+      {
+       dispatch(updateTodoState(id,name,completed,priority))
+      }
+    })
+  }
+}
+
+const updateTodoState = (id,name,completed,priority) =>{
+  const action = {
+    type:UPDATE_TODO,
+    payload:{
+      completed,
+      priority,
+      _id:id,
+      name
+    }
+  }
+  return action
+}

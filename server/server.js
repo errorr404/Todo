@@ -41,10 +41,11 @@ app.post('/api/post_todo',(req,res)=>{
 
 app.put('/api/update_todo',(req,res)=>{
     var id = req.body.id
+    console.log(req.body)
     Todo.findByIdAndUpdate(id,{$set:{name:req.body.name,priority:req.body.priority,completed:req.body.completed}})
         .then(update_res=>{
             if(update_res){
-                return res.status(200).send({"message":"successfully updated"})
+                return res.status(200).send({"message":"successfully updated","todo":update_res})
             }
             else return res.status(201).send({"message":"No todo found"})
         }).catch(err=>res.send({"message":"internal server error"}))

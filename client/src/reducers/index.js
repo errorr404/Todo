@@ -1,12 +1,5 @@
 import {ADD_TODO,UPDATE_TODO} from '../constant'
 
-const todo = (action) =>{
-    let {name} = action
-    return {
-        name
-    }
-}
-
 const todoFunc = (state=[],action) =>{
     let todo = null
     switch(action.type){
@@ -14,6 +7,11 @@ const todoFunc = (state=[],action) =>{
         todo = [...state,action.name]
         console.log('in add todo reducer')
         return todo
+
+        case UPDATE_TODO:
+        todo = state.filter(item=>item._id!==action.payload._id)
+        var newTodo = [...todo,action.payload]
+        return newTodo
     }
 }
 
