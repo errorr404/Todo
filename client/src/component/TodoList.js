@@ -61,22 +61,25 @@ class TodoList extends React.Component {
                   {todo.completed === true ? "Completed" : "Pending"}
                 </CustomTableCell>
                 {todo.completed === true ? (
-                  <CustomTableCell
-                    align="right"
-                   
-                  >
-                    <i className="fas fa-check-circle"  onClick={e => this.handleUpdate(todo)}/>
+                  <CustomTableCell align="right">
+                    <i
+                      style={{ cursor: "pointer" }}
+                      className="fas fa-check-circle"
+                      onClick={e => this.handleUpdate(todo)}
+                    />
                   </CustomTableCell>
                 ) : (
-                  <CustomTableCell
-                    align="right"
-                    
-                  >
-                    <i className="far fa-check-circle" onClick={e => this.handleUpdate(todo)}/>
+                  <CustomTableCell align="right">
+                    <i
+                      style={{ cursor: "pointer" }}
+                      className="far fa-check-circle"
+                      onClick={e => this.handleUpdate(todo)}
+                    />
                   </CustomTableCell>
                 )}
                 <CustomTableCell align="right">
                   <i
+                    style={{ cursor: "pointer" }}
                     className="fas fa-trash-alt"
                     onClick={e => this.handleDelete(todo._id)}
                   />
