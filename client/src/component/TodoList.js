@@ -35,27 +35,27 @@ class TodoList extends React.Component {
       currentId: "",
       currentName: "",
       currentPriority: "",
-      currentCompleted:""
+      currentCompleted: ""
     };
   }
 
-  handleModalName = (id, name, priority,completed) => {
+  handleModalName = (id, name, priority, completed) => {
     this.setState({
       currentId: id,
       currentName: name,
       openName: true,
       currentPriority: priority,
-      currentCompleted:completed
+      currentCompleted: completed
     });
   };
 
-  handleModalPriority = (id, priority, name,completed) => {
+  handleModalPriority = (id, priority, name, completed) => {
     this.setState({
       currentId: id,
       currentPriority: priority,
       openPriority: true,
       currentName: name,
-      currentCompleted:completed
+      currentCompleted: completed
     });
   };
 
@@ -65,15 +65,25 @@ class TodoList extends React.Component {
 
   handleUpdateTask = e => {
     e.preventDefault();
-    console.log('in handle task...')
+    console.log("in handle task...");
     console.log(
       this.state.currentId,
       this.state.currentName,
       this.state.currentPriority,
       this.state.currentCompleted
     );
-    this.props.updateTodo(this.state.currentId,this.state.currentName,this.state.currentCompleted,this.state.currentPriority)
-    this.setState({currentId:'',currentName:'',currentPriority:'',openName:false})
+    this.props.updateTodo(
+      this.state.currentId,
+      this.state.currentName,
+      this.state.currentCompleted,
+      this.state.currentPriority
+    );
+    this.setState({
+      currentId: "",
+      currentName: "",
+      currentPriority: "",
+      openName: false
+    });
   };
   handleUpdatePriority = e => {
     this.props.updateTodo(
@@ -111,6 +121,13 @@ class TodoList extends React.Component {
           onClose={e =>
             this.setState({ openName: false, currentId: "", currentName: "" })
           }
+          closeOnEsc={e =>
+            this.setState({
+              openPriority: false,
+              currentId: "",
+              currentName: ""
+            })
+          }
           center
         >
           <h2>Edit the task</h2>
@@ -138,6 +155,13 @@ class TodoList extends React.Component {
         <Modal
           open={this.state.openPriority}
           onClose={e =>
+            this.setState({
+              openPriority: false,
+              currentId: "",
+              currentPriority: ""
+            })
+          }
+          closeOnEsc={e =>
             this.setState({
               openPriority: false,
               currentId: "",
@@ -196,7 +220,12 @@ class TodoList extends React.Component {
                       className="fas fa-edit"
                       style={{ cursor: "pointer" }}
                       onClick={e =>
-                        this.handleModalName(todo._id, todo.name, todo.priority,todo.completed)
+                        this.handleModalName(
+                          todo._id,
+                          todo.name,
+                          todo.priority,
+                          todo.completed
+                        )
                       }
                     />
                   ) : (

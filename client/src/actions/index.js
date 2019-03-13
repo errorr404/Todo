@@ -62,7 +62,7 @@ export const updateTodo = (id, name, completed, priority) => {
         if (res.status === 200) {
           dispatch(updateTodoState(id, name, completed, priority));
         }
-      });
+      }).catch(err=>alert('something wrong'));
   };
 };
 
