@@ -86,6 +86,7 @@ class TodoList extends React.Component {
     });
   };
   handleUpdatePriority = e => {
+    e.preventDefault()
     this.props.updateTodo(
       this.state.currentId,
       this.state.currentName,
