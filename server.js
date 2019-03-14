@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors())
 mongoose
-  .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/Todo", { useNewUrlParser: true })
+  .connect(process.env.MONGOLAB_URI || "mongodb://localhost:27017/Todo", { useNewUrlParser: true })
   .then(() => console.log("connected to mongodb"))
   .catch(err => console.log(err));
 app.use('/',routes)
