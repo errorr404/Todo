@@ -4,7 +4,7 @@ import axios from "axios";
 export const addTodo = name => {
   return dispatch => {
     axios
-      .post("http://localhost:5000/api/post_todo", { name: name })
+      .post("/api/post_todo", { name: name })
       .then(res => {
         if (res.status === 200) {
           dispatch(addTodoSuccess(res.data.todo));
@@ -28,7 +28,7 @@ const addTodoSuccess = name => {
 export const setInitialTodo = () => {
   return dispatch => {
     axios
-      .get("http://localhost:5000/api/get_todo")
+      .get("/api/get_todo")
       .then(res => {
         if (res.status === 200) {
           console.log(res.data);
@@ -52,7 +52,7 @@ const setInitialTodoSuccess = name => {
 export const updateTodo = (id, name, completed, priority) => {
   return dispatch => {
     axios
-      .put("http://localhost:5000/api/update_todo", {
+      .put("/api/update_todo", {
         id,
         name,
         completed,
@@ -81,7 +81,7 @@ const updateTodoState = (id, name, completed, priority) => {
 
 export const deleteTodo = id => {
   return dispatch => {
-    axios.delete("http://localhost:5000/api/delete_todo", {data:{id:id}}).then(res => {
+    axios.delete("/api/delete_todo", {data:{id:id}}).then(res => {
       if (res.status === 200) {
         dispatch(deleteTodoState(id))
       }
