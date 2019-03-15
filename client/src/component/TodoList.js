@@ -184,14 +184,14 @@ class TodoList extends React.Component {
                 margin="normal"
                 variant="outlined"
               />
-              <p>Eg:-High,Low,Medium</p>
+              <p>Ex:-High,Low,Medium</p>
               <Button
                 variant="contained"
                 color="primary"
                 onClick={this.handleUpdatePriority}
               >
                 {" "}
-                Add the task
+                Change the Status
               </Button>
             </FormControl>
           </form>
