@@ -11,6 +11,7 @@ import Modal from "react-responsive-modal";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
+import '../App.css';
 
 import { setInitialTodo, updateTodo, deleteTodo } from "../actions/index";
 
@@ -28,8 +29,6 @@ class TodoList extends React.Component {
   constructor() {
     super();
     this.state = {
-      showEditName: false,
-      showEditPriority: false,
       openName: false,
       openPriority: false,
       currentId: "",
@@ -212,13 +211,11 @@ class TodoList extends React.Component {
                 <CustomTableCell
                   component="th"
                   scope="row"
-                  onMouseOver={e => this.setState({ showEditName: true })}
-                  onMouseLeave={e => this.setState({ showEditName: false })}
+                  className="item-hover"
                 >
                   {todo.name}
-                  {this.state.showEditName ? (
                     <i
-                      className="fas fa-edit"
+                      className="fas fa-edit item-show-icon"
                       style={{ cursor: "pointer" }}
                       onClick={e =>
                         this.handleModalName(
@@ -229,19 +226,14 @@ class TodoList extends React.Component {
                         )
                       }
                     />
-                  ) : (
-                    ""
-                  )}
                 </CustomTableCell>
                 <CustomTableCell
                   align="right"
-                  onMouseOver={e => this.setState({ showEditPriority: true })}
-                  onMouseLeave={e => this.setState({ showEditPriority: false })}
+                  className="item-hover"
                 >
                   {todo.priority}
-                  {this.state.showEditPriority ? (
                     <i
-                      className="fas fa-edit"
+                      className="fas fa-edit item-show-icon"
                       style={{ cursor: "pointer" }}
                       onClick={e =>
                         this.handleModalPriority(
@@ -252,9 +244,6 @@ class TodoList extends React.Component {
                         )
                       }
                     />
-                  ) : (
-                    ""
-                  )}
                 </CustomTableCell>
                 <CustomTableCell align="right">
                   {todo.completed === true ? "Completed" : "Pending"}
