@@ -15,7 +15,7 @@ class CreateTodo extends React.Component {
   handleAddTodo = e => {
     e.preventDefault();
     if(this.state.name && this.state.name.length>0){
-      this.props.addTodo(this.state.name)
+      this.props.addTodo(this.state ? this.state.name : '')
       this.setState({name:""})
     }
     else{

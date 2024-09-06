@@ -101,6 +101,7 @@ class TodoList extends React.Component {
   };
   handleUpdate = obj => {
     console.log(obj);
+    const { completed } = obj;
     var completed = !obj.completed;
     this.props.updateTodo(obj._id, obj.name, completed, obj.priority);
   };
